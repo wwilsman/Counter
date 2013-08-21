@@ -57,11 +57,11 @@ if( preg_match('/^
 	<title>Count Down</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<link rel="apple-touch-icon-precomposed" href="counter-icon.png">
-	<link rel="apple-touch-startup-image" href="counter-splash.png">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 
 	<link rel="stylesheet" href="css/stylesheet.css">
+	
+	<script src="Counter.min.js"></script>
 </head>
 <body>
 	<div id="counter">
@@ -93,7 +93,6 @@ if( preg_match('/^
 		</div>
 	</div>
 	
-	<script src="js/Counter.min.js"></script>
 <?php 
 	echo "<script>";
 		echo "var counter = new Counter({";

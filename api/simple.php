@@ -32,7 +32,7 @@ if( preg_match('/^
 		'O' => !empty($regs[9]) ? $regs[9] : date('O')
 	);
 
-	$jsDate = "{$date['Y']}-{$date['m']}-{$date['d']}T{$date['H']}:{$date['i']}:{$date['s']}{$date['O']}";
+	$jsDate = "{$date['Y']}/{$date['m']}/{$date['d']} {$date['H']}:{$date['i']}:{$date['s']}{$date['O']}";
 }
 
 ?>
@@ -43,16 +43,15 @@ if( preg_match('/^
 	<title>Count Down</title>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<link rel="apple-touch-icon-precomposed" href="counter-icon.png">
-	<link rel="apple-touch-startup-image" href="counter-splash.png">
 	<meta name="apple-mobile-web-app-capable" content="yes">
 
 	<link rel="stylesheet" href="css/stylesheet.css">
+
+	<script src="Counter.min.js"></script>
 </head>
 <body>
 	<div id="counter"></div>
 	
-	<script src="js/Counter.min.js"></script>
 	<script>
 		var cntElem = document.getElementById( 'counter' );
 		var counter = new Counter( cntElem );
