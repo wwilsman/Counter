@@ -3,21 +3,20 @@ Counter
 
 Count down (or up) to a specified date.
 
-*&copy; 2013 (Wil Wilsman)[wilwilsman.com]* <hello@wilwilsman.com>
-
------
-
-# Counter.js
+*&copy; 2013 [Wil Wilsman](wilwilsman.com)* <hello@wilwilsman.com>
 
 
+## Counter.js
 
-## Counter.options
+
+
+### Counter.options
 
 Exposes the options for dynamic changes.
 
 
 
-## Counter.init(\[date\])
+### Counter.init(\[date\])
 
 Initializes the counter.
 
@@ -27,7 +26,7 @@ Initializes the counter.
 
 
 
-## Counter.build()
+### Counter.build()
 
 Turns the template into a DOM Object and sets options accordingly.
 
@@ -37,7 +36,7 @@ Turns the template into a DOM Object and sets options accordingly.
 
 
 
-## Counter.dateDiff()
+### Counter.dateDiff()
 
 Gets the difference between dates as defined in the options.
 
