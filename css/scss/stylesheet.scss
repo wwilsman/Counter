@@ -1,0 +1,156 @@
+@import "compass";
+@import "helpers";
+
+*, *:before, *:after {
+	@include box-sizing( border-box );
+}
+
+html, body {
+	margin: 0; padding: 0;
+	width: 100%; height: 100%;
+	font: 10px/1 sans-serif;
+}
+
+// Base Container
+// This is What Gets Variably Styled
+#counter {
+	width: 100%; height: 100%;
+	text-align: center;
+	white-space: nowrap;
+	background-color: #333;
+	color: #CCC;
+	@include long-shadow( 'text', #333, 50, 0.2 );
+
+	// Centers the Content
+	&:before {
+		content: '';
+		display: inline-block;
+		vertical-align: middle;
+		width: 0; height: 100%;
+		margin-right: -0.25em;
+	}
+}
+
+// The Actual Counter
+.cnt_container {
+	display: inline-block;
+	vertical-align: middle;
+	white-space: nowrap;
+	
+	> div {
+		position: relative;
+		display: inline-block;
+		vertical-align: top;
+		font-size: 5em;
+		margin-right: 0.5em;
+		z-index: 10;
+
+		&.wrapper, &:last-child > div {
+			margin-right: 0;
+		}
+	}
+}
+
+// div.wrapper is Used for Responsiveness
+.wrapper > div {
+	position: relative;
+	display: inline-block;
+	vertical-align: top;
+	margin-right: 0.5em;
+}
+
+.cnt_number {
+	position: relative;
+	margin-bottom: 0.1em;
+	z-index: 5;
+	
+	&:after {
+		content: ':';
+		position: absolute;
+		top: 0; left: 100%;
+		width: 0.5em;
+		text-align: center;
+	}
+}
+
+.cnt_label {
+	position: relative;
+	text-align: center;
+	font-size: 0.25em;
+	z-index: 10;
+}
+
+// Contents of Each Label
+.cnt_days .cnt_label:before { content: 'Days' }
+.cnt_hours .cnt_label:before { content: 'Hours' }
+.cnt_minutes .cnt_label:before { content: 'Mins' }
+.cnt_seconds .cnt_label:before { content: 'Secs' }
+
+// Milliseconds Uses a dot Before Instead of a Colon After
+.cnt_millisecs {
+	margin-left: 0.5em;
+
+	.cnt_number:before { 
+		content: '.';
+		position: absolute;
+		top: 0; right: 100%;
+		width: 0.5em;
+		text-align: center;
+	}
+}
+
+// Seconds and Milliseconds Don't Need a Colon
+.cnt_seconds .cnt_number:after,
+.cnt_millisecs .cnt_number:after,
+// Variable Showing of Certain Numbers
+.no-days .cnt_days,
+.no-hours .cnt_hours,
+.no-minutes .cnt_minutes,
+.no-seconds .cnt_seconds,
+.no-millisecs .cnt_millisecs,
+// Chaining Variable Showing to Fix After (and Before) Elements
+.no-seconds .cnt_minutes .cnt_number:after,
+.no-seconds.no-minutes .cnt_hours .cnt_number:after,
+.no-seconds.no-minutes.no-hours .cnt_days .cnt_number:after,
+.no-seconds.no-minutes.no-hours.no-days .cnt_millisecs .cnt_number:before
+{ display: none !important }
+
+// Additional Chaining Fixes
+.no-seconds .cnt_minutes,
+.no-seconds.no-minutes .cnt_hours,
+.no-seconds.no-minutes.no-hours .cnt_days
+{ margin-right: 0 }
+
+.no-seconds.no-minutes.no-hours.no-days .cnt_millisecs
+{ margin-left: 0 }
+
+
+// Enter Responsive
+@media ( max-width: 500px ) {
+	.cnt_container {
+		white-space: normal;
+
+		.cnt_days { 
+			z-index: 1;
+			display: block;
+			font-size: 10em;
+			margin-right: 0;
+			margin-bottom: 0.3em;
+
+			.cnt_number:after { display: none }
+		}
+
+		.cnt_minutes { margin-right: 0 }
+		.cnt_minutes .cnt_number:after { display: none }
+
+		.wrapper { display: block }
+		.wrapper:last-child { margin-top: 0.6em }
+	}
+
+	.no-seconds .cnt_millisecs { margin-left: 0 }
+	.no-seconds .cnt_millisecs .cnt_number:before { display: none }
+
+	.no-hours.no-minutes .wrapper:last-child,
+	.no-millisecs.no-seconds .wrapper:last-child 
+	{ margin-top: 0 }
+}

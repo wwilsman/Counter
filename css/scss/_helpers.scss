@@ -1,0 +1,132 @@
+
+@mixin prefix( $property, $value, $prefixes: webkit moz ms o, $official: true ) {
+	@each $pre in $prefixes { -#{$pre}-#{$property}: $value; }
+	@if $official { #{$property}: $value; }
+}
+
+@mixin prefix-val( $property, $value, $prefixes: webkit moz ms o, $official: true ) {
+	@each $pre in $prefixes { #{$property}: -#{$pre}-#{$value}; }
+	@if $official { #{$property}: $value; }
+}
+
+// Long Shadow Trend
+@mixin long-shadow( $type, $bg-color, $length, $darkness: 1 ) {
+	$shadow: ''; $h: hue( $bg-color ); $s: saturation( $bg-color ); $l: lightness( $bg-color );
+	@for $i from 1 to $length - 1 {
+		$int: ( $darkness * $i ) + ( ( 1 - $darkness ) * $length );
+		$shadow: $shadow + $i + 'px ' + $i + 'px 0 ' + hsl( $h, $s, ( $int/$length ) * $l ) + ',';
+	}
+	$shadow: $shadow + $length + 'px ' + $length + 'px 0 ' + hsl( $h, $s, $l );
+	$shadow: unquote( $shadow );
+	@if $type == 'box' { box-shadow: $shadow; }
+	@if $type == 'text' { text-shadow: $shadow; }
+}
+
+// New & Old Styntax Flex-boxes
+@mixin display-flex( $display: flex ) {
+	display: -ms-#{$display}box;
+	@include prefix-val( display, box, webkit moz, false );
+	@include prefix-val( display, $display, webkit );
+}
+
+@mixin flex-direction( $flex-direction: row ) {
+	$flex-direction: unquote($flex-direction);
+	$deprecated: $flex-direction;
+	@if $flex-direction == row { $deprecated: normal horizontal; } 
+	@if $flex-direction == row-reverse { $deprecated: reverse horizontal; } 
+	@if $flex-direction == column { $deprecated: normal vertical; } 
+	@if $flex-direction == column-reverse { $deprecated: reverse vertical; }
+	@include prefix( box-direction, nth($deprecated, 1), webkit moz, false );
+	@include prefix( box-orient, nth($deprecated, 2), webkit moz, false );
+	@include prefix( flex-direction, $flex-direction, webkit ms );
+}
+
+@mixin flex-wrap( $flex-wrap: nowrap ) {
+	$flex-wrap: unquote($flex-wrap);
+	@include prefix( flex-wrap, $flex-wrap, webkit ms );
+}
+
+@mixin flex-flow( $flex-flow: row nowrap ) {
+	@if length($flex-flow) <= 2 {
+		@each $flow in $flex-flow {
+			@if ( $flow == nowrap ) or ( $flow == wrap ) or ( $flow == wrap-reverse ) {
+				@include flex-wrap($flow);
+			}
+			@else {
+				@include flex-direction($flow);
+			}
+		}
+	}
+}
+
+@mixin justify-content( $justify-content: flex-start ) {
+	$justify-content: unquote($justify-content);
+	$deprecated: $justify-content;
+	@if $justify-content == flex-start { $deprecated: start; }
+	@if $justify-content == flex-end { $deprecated: end; }
+	@if $justify-content == space-between { $deprecated: justify; }
+	@if $justify-content == space-around { $deprecated: start; }
+	-ms-flex-pack: if($justify-content == space-around, distribute, $deprecated);
+	@include prefix( box-pack, $deprecated, webkit moz, false );
+	@include prefix( justify-content, $justify-content, webkit );
+}
+
+@mixin align-items( $align-items: stretch ) {
+	$align-items: unquote($align-items);
+	$deprecated: $align-items;
+	@if $align-items == flex-start { $deprecated: start; }
+	@if $align-items == flex-end { $deprecated: end; }
+	@include prefix( box-align, $deprecated, webkite moz ms, false );
+	@include prefix( align-items, $align-items, webkit );
+}
+
+@mixin align-content( $align-content: stretch ) {
+	$align-content: unquote($align-content);
+	$deprecated: $align-content;
+	@if $align-content == flex-start { $deprecated: start; }
+	@if $align-content == flex-end { $deprecated: end; }
+	@if $align-content == space-between { $deprecated: justify; }
+	@if $align-content == space-around { $deprecated: distribute; }
+	-ms-flex-line-pack: $deprecated;
+	@include prefix( align-content, $align-content, webkit );
+}
+
+@mixin order( $order: 0 ) {
+	@include prefix( box-ordinal-group, $order + 1, webkit moz, false );
+	@include prefix( order, $order, webkit ms );
+}
+
+@mixin flex-grow( $flex-grow: 0 ) {
+	@include prefix( box-flex, $flex-grow, webkit moz, false );
+	@include prefix( flex-grow, $flex-grow, webkit-ms );
+}
+
+@mixin flex-shrink( $flex-shrink: 1 ) {
+	@include prefix( flex-shrink, $flex-shrink, webkit ms );
+}
+
+@mixin flex-base( $flex-base: auto ) {
+	$flex-base: unquote($flex-base);
+	@if ( $flex-base == number ) and ( unitless($flex-base) ) { $flex-base: auto; }
+	@include prefix( flex-base, $flex-base, webkit ms );
+}
+
+@mixin flex( $flex: 0 1 auto ) {
+	$flex: if( type-of($flex) == list, $flex, $flex 1 auto );
+	@if( type-of(nth($flex, 3)) == number ) {
+		@if unitless(nth($flex, 3)) {
+			$flex: nth($flex, 1) nth($flex, 2) auto;
+		}
+	}
+	@include prefix( box-flex, nth($flex, 1), webkit moz, false );
+	@include prefix( flex, $flex, webkit ms );
+}
+
+@mixin align-self( $align-self: auto ) {
+	$align-self: unquote($align-self);
+	$deprecated: $align-self;
+	@if $align-self == flex-start { $deprecated: start; }
+	@if $align-self == flex-end { $deprecated: end; }
+	-ms-flex-line-pack: $deprecated;
+	@include prefix( align-content, $align-self, webkit );
+}

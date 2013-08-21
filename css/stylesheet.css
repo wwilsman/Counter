@@ -1,0 +1,169 @@
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font: 10px/1 sans-serif;
+}
+
+#counter {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  white-space: nowrap;
+  background-color: #333;
+  color: #CCC;
+  text-shadow: 1px 1px 0 #292929,2px 2px 0 #292929,3px 3px 0 #292929,4px 4px 0 #2a2a2a,5px 5px 0 #2a2a2a,6px 6px 0 #2a2a2a,7px 7px 0 #2a2a2a,8px 8px 0 #2a2a2a,9px 9px 0 #2b2b2b,10px 10px 0 #2b2b2b,11px 11px 0 #2b2b2b,12px 12px 0 #2b2b2b,13px 13px 0 #2b2b2b,14px 14px 0 #2c2c2c,15px 15px 0 #2c2c2c,16px 16px 0 #2c2c2c,17px 17px 0 #2c2c2c,18px 18px 0 #2c2c2c,19px 19px 0 #2d2d2d,20px 20px 0 #2d2d2d,21px 21px 0 #2d2d2d,22px 22px 0 #2d2d2d,23px 23px 0 #2d2d2d,24px 24px 0 #2e2e2e,25px 25px 0 #2e2e2e,26px 26px 0 #2e2e2e,27px 27px 0 #2e2e2e,28px 28px 0 #2f2f2f,29px 29px 0 #2f2f2f,30px 30px 0 #2f2f2f,31px 31px 0 #2f2f2f,32px 32px 0 #2f2f2f,33px 33px 0 #303030,34px 34px 0 #303030,35px 35px 0 #303030,36px 36px 0 #303030,37px 37px 0 #303030,38px 38px 0 #313131,39px 39px 0 #313131,40px 40px 0 #313131,41px 41px 0 #313131,42px 42px 0 #313131,43px 43px 0 #323232,44px 44px 0 #323232,45px 45px 0 #323232,46px 46px 0 #323232,47px 47px 0 #323232,48px 48px 0 #333333,50px 50px 0 #333333;
+}
+#counter:before {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 100%;
+  margin-right: -0.25em;
+}
+
+.cnt_container {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.cnt_container > div {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 5em;
+  margin-right: 0.5em;
+  z-index: 10;
+}
+.cnt_container > div.wrapper, .cnt_container > div:last-child > div {
+  margin-right: 0;
+}
+
+.wrapper > div {
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 0.5em;
+}
+
+.cnt_number {
+  position: relative;
+  margin-bottom: 0.1em;
+  z-index: 5;
+}
+.cnt_number:after {
+  content: ':';
+  position: absolute;
+  top: 0;
+  left: 100%;
+  width: 0.5em;
+  text-align: center;
+}
+
+.cnt_label {
+  position: relative;
+  text-align: center;
+  font-size: 0.25em;
+  z-index: 10;
+}
+
+.cnt_days .cnt_label:before {
+  content: "Days";
+}
+
+.cnt_hours .cnt_label:before {
+  content: "Hours";
+}
+
+.cnt_minutes .cnt_label:before {
+  content: "Mins";
+}
+
+.cnt_seconds .cnt_label:before {
+  content: "Secs";
+}
+
+.cnt_millisecs {
+  margin-left: 0.5em;
+}
+.cnt_millisecs .cnt_number:before {
+  content: '.';
+  position: absolute;
+  top: 0;
+  right: 100%;
+  width: 0.5em;
+  text-align: center;
+}
+
+.cnt_seconds .cnt_number:after,
+.cnt_millisecs .cnt_number:after,
+.no-days .cnt_days,
+.no-hours .cnt_hours,
+.no-minutes .cnt_minutes,
+.no-seconds .cnt_seconds,
+.no-millisecs .cnt_millisecs,
+.no-seconds .cnt_minutes .cnt_number:after,
+.no-seconds.no-minutes .cnt_hours .cnt_number:after,
+.no-seconds.no-minutes.no-hours .cnt_days .cnt_number:after,
+.no-seconds.no-minutes.no-hours.no-days .cnt_millisecs .cnt_number:before {
+  display: none !important;
+}
+
+.no-seconds .cnt_minutes,
+.no-seconds.no-minutes .cnt_hours,
+.no-seconds.no-minutes.no-hours .cnt_days {
+  margin-right: 0;
+}
+
+.no-seconds.no-minutes.no-hours.no-days .cnt_millisecs {
+  margin-left: 0;
+}
+
+@media (max-width: 500px) {
+  .cnt_container {
+    white-space: normal;
+  }
+  .cnt_container .cnt_days {
+    z-index: 1;
+    display: block;
+    font-size: 10em;
+    margin-right: 0;
+    margin-bottom: 0.3em;
+  }
+  .cnt_container .cnt_days .cnt_number:after {
+    display: none;
+  }
+  .cnt_container .cnt_minutes {
+    margin-right: 0;
+  }
+  .cnt_container .cnt_minutes .cnt_number:after {
+    display: none;
+  }
+  .cnt_container .wrapper {
+    display: block;
+  }
+  .cnt_container .wrapper:last-child {
+    margin-top: 0.6em;
+  }
+
+  .no-seconds .cnt_millisecs {
+    margin-left: 0;
+  }
+
+  .no-seconds .cnt_millisecs .cnt_number:before {
+    display: none;
+  }
+
+  .no-hours.no-minutes .wrapper:last-child,
+  .no-millisecs.no-seconds .wrapper:last-child {
+    margin-top: 0;
+  }
+}
