@@ -26,7 +26,7 @@ function Counter(options) {
   /** @private */
   var self = this,
     updateInterval = 10,
-    container = !options.hasOwnProperty(date) ? options : null,
+    container = !options.hasOwnProperty('date') ? options : null,
     times = [ 'days', 'hours', 'minutes', 'seconds', 'millisecs' ],
     opt,
 
@@ -137,7 +137,7 @@ function Counter(options) {
    * Turns the template into a DOM Object and sets options accordingly.
    *
    * @method build
-   * @returns {Object} The DOM Object created from the tmeplate.
+   * @returns {Object} The DOM Object created from the template.
    */ 
   self.build = function () {
     var counter = tmpl(self.options.template, {times: times}),
