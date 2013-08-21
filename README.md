@@ -12,7 +12,7 @@ To set a date to count down (or up) to add `?d=` to the URL followed by the date
 
 You can optionally ommit anything that is not a digit from the date, but it will assume the date givin starts with the year.
 
-[http://counter.wilwilsman.com/?d=201308211430](http://wwilsman.github.io/Counter/?d=201308211430)
+[http://counter.wilwilsman.com/?d=201308211430](http://counter.wilwilsman.com/?d=201308211430)
 
 *More documentation to come*
 
